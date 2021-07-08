@@ -2,18 +2,41 @@
   "name": "ssch-site",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build" : "gulp",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ssch1337/ssch-site.git"
   },
-  "author": "",
+  "author": "Sergey Scheglov",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ssch1337/ssch-site/issues"
   },
-  "homepage": "https://github.com/ssch1337/ssch-site#readme"
+  "homepage": "https://github.com/ssch1337/ssch-site#readme",
+  "dependencies": {
+    "@types/animejs": "^3.1.4",
+    "@types/node": "^16.0.1",
+    "@types/three": "^0.130.0",
+    "animejs": "^3.2.1",
+    "browserify": "^17.0.0",
+    "gulp": "^4.0.2",
+    "gulp-if": "^3.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.0.0",
+    "gulp-uglify": "^3.0.2",
+    "sass": "^1.35.2",
+    "three": "^0.130.1",
+    "tsify": "^5.0.4",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "devDependencies": {
+    "fancy-log": "^1.3.3",
+    "gulp-sourcemaps": "^3.0.0",
+    "watchify": "^4.0.0"
+  }
 }
