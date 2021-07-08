@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+html
+    head
+        meta(charset="UTF-8")
+        link(rel='stylesheet' href=`${project}${production ? ".min" : ''}.css`)
+        title= title
+    body
+        block content
+        script(src=`${project}${production ? ".min" : ''}.js`)

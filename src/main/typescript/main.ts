@@ -6,6 +6,8 @@ function showHello(divName: string, name: string) {
     elt.innerText = sayHello(name);
 }
 
+showHello("greeting", "Typescript!");
+
 anime({
     targets: 'div',
     translateX: 250,
@@ -13,5 +15,3 @@ anime({
     backgroundColor: '#FFF',
     duration: 800
 });
-
-showHello("greeting", "Typescript!");
