@@ -1,0 +1,5 @@
+{
+    "http": 80,
+    "https": 443,
+    "livereload": 1337
+}

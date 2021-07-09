@@ -2,6 +2,12 @@
     "ts-node": {
         "transpileOnly": false,
         "files": true,
-        "compilerOptions": {}
+        "compilerOptions": {
+            "resolveJsonModule": true,
+        },
+
+    },
+    "compilerOptions": {
+        "resolveJsonModule": true,
     }
 }

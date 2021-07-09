@@ -13,8 +13,14 @@ npm run build
 ```
 
 ## Start server
+Start http server:
 ```shell 
 npm run start
+```
+
+Start https server(also runs the http, which redirects to the https):
+```shell
+npm run start-https
 ```
 
 # For development
@@ -57,10 +63,15 @@ To start automatic page refresh, you must run the command and, when starting the
 ```shell
 npm run livereload
 ```
-
+> :warning: **live reload does not work when https support is enabled.** Run live reload only on your local computer without https
 ## Starting the server and tracking its changes
 In order to start the server and automatically restart it when changed, you need to enter this command
 
 ```shell
 npm run dev
+```
+
+You can also enable change tracking with https
+```shell
+npm run dev-https
 ```
