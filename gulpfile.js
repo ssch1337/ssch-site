@@ -40,7 +40,7 @@ class tsBuild {
 					entries: [`src/${projectName}/typescript/main.ts`],
 					cache: {},
 					packageCache: {},
-				}).plugin(tsify, fs.readFileSync(`src/${projectName}/tsconfig.json`));
+				}).plugin(tsify, { project: `src/${projectName}/tsconfig.json` });
 
 				this.bundle[index] = () => {
 					return this.bundler[index].bundle()
