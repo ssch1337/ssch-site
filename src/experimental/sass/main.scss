@@ -1,5 +1,51 @@
-@import 'new';
+html, body, canvas {
+    user-select: none;
+    display: block;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
 
-div {
-    opacity: 0.2;
+html {
+    background: black;
+}
+
+html, input {
+    font: 3vw/1 sans-serif;
+}
+
+@media all and (max-width: 800px) {
+    html, input {
+        font-size: 24px;
+    }
+}
+
+#count, #fps {
+    display: block;
+    width: 6em;
+    background: rgba(0, 0, 0, .3);
+    border: none;
+    color: rgba(255, 255, 255, .5);
+    padding: 0;
+    text-indent: 1vw;
+}
+
+#count {
+    pointer-events: auto;
+}
+
+#count:hover, #count:focus {
+    color: white;
+    background: rgba(255, 255, 255, .3);
+}
+
+#stats {
+    position: fixed;
+    color: rgba(255, 255, 255, .5);
+    top: 1vw;
+    left: 0;
+}
+
+#fps {
+    pointer-events: none;
 }

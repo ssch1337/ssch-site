@@ -1,26 +1,65 @@
-import * as THREE from 'three';
+import { initPhysics } from "./physics";
+import { initRenderer } from "./renderer-webgl";
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+async function main() {
+    const canvas = document.querySelector('canvas');
+    const countInput: HTMLInputElement = document.querySelector('#count');
+    const fpsInput: HTMLInputElement = document.querySelector('#fps');
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+    let particlesCount: number;
+    let canvasWidth: number;
+    let canvasHeight: number;
 
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+    const { getData, tick, fire } = await initPhysics();
+    const { render } = await initRenderer(canvas);
 
-camera.position.z = 5;
+    {
+        const resizeHandler = () => {
+            canvasWidth = canvas.clientWidth;
+            canvasHeight = canvas.clientHeight;
+        }
+        window.addEventListener('resize', resizeHandler);
+        resizeHandler();
+    }
 
-const animate = function () {
-    requestAnimationFrame( animate );
+    {
+        const inputHandler = () => {
+            const inputValue = Math.trunc(Number(countInput.value));
+            if (inputValue > 0) {
+                particlesCount = inputValue;
+            }
+        }
+        countInput.addEventListener('input', inputHandler);
+        inputHandler();
+    }
 
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+    {
+        const clickHandler = (e: any) => {
+            fire(e.offsetX - canvas.clientWidth / 2, e.offsetY - canvas.clientHeight / 2);
+        }
+        canvas.addEventListener('click', clickHandler);
+    }
 
-    renderer.render( scene, camera );
-};
+    {
+        let lastTs = 0;
+        let framesDrawn = 0;
 
-animate();
+        const frame = (timestamp: number) => {
+            requestAnimationFrame(frame);
+
+            tick(particlesCount);
+            render(getData(), particlesCount, canvasWidth, canvasHeight);
+
+            framesDrawn++;
+            if (timestamp > lastTs + 2000) {
+                fpsInput.value = (1000 * framesDrawn / (timestamp - lastTs)).toFixed(1) + ' FPS';
+                lastTs = timestamp;
+                framesDrawn = 0;
+            }
+        }
+        frame(0);
+    }
+
+}
+
+main()
