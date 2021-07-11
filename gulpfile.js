@@ -9,6 +9,7 @@ const gulp = require("gulp"),
 	browserify = require("browserify"), // Build js into one file
 	source = require("vinyl-source-stream"), // For browserify
 	tsify = require("tsify"), // Browserify compilation plugin
+	glslifyRequire = require('glslify-require'), // Browserify glsl require plugin
 	gulpif = require("gulp-if"), // To implement logic in Readable Stream
 	sass = require("gulp-sass")(require("sass")),
 	rename = require("gulp-rename"), // For the .min extension
@@ -40,7 +41,7 @@ class tsBuild {
 					entries: [`src/${projectName}/typescript/main.ts`],
 					cache: {},
 					packageCache: {},
-				}).plugin(tsify, { project: `src/${projectName}/tsconfig.json` });
+				}).plugin(tsify, { project: `src/${projectName}/tsconfig.json` }).plugin(glslifyRequire);
 
 				this.bundle[index] = () => {
 					return this.bundler[index].bundle()
