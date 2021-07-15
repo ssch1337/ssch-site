@@ -1,17 +1,14 @@
-import { sayHello } from "./greet";
 import * as anime from 'animejs';
+import { preloadAnim } from './preloader-anim';
 
-function showHello(divName: string, name: string) {
-    const elt = document.getElementById(divName);
-    elt.innerText = sayHello(name);
-}
+const preload = new preloadAnim();
 
-showHello("greeting", "Typescript!");
+preload.play();
+preload.playEnd();
 
-anime({
-    targets: 'div',
-    translateX: 250,
-    rotate: '1turn',
-    backgroundColor: '#FFF',
-    duration: 800
+preload.finished().then(() => {
+    console.log("Preload animation start done");
+    preload.finished().then(() => {
+        console.log("Preload animation complete");
+    });
 });
