@@ -1,14 +1,13 @@
-import * as anime from 'animejs';
-import { preloadAnim } from './preloader-anim';
+import * as React from 'react';
+import * as rxjs from 'rx';
+declare global {
+    const anime: typeof import('animejs');
+};
 
-const preload = new preloadAnim();
+console.log("External script loaded");
 
-preload.play();
-preload.playEnd();
-
-preload.finished().then(() => {
-    console.log("Preload animation start done");
-    preload.finished().then(() => {
-        console.log("Preload animation complete");
-    });
-});
+// Simulate waiting for the page to load
+setTimeout(() => {
+    console.log("Page loaded");
+    document.documentElement.classList.add('loaded');
+}, 7000);

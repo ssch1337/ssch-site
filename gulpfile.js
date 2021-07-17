@@ -128,7 +128,7 @@ class sassBuild {
 }
 
 
-const projects = ["main", "experimental"];
+const projects = ["preloader", "main", "experimental"];
 
 /*/
  * Selective compilation.

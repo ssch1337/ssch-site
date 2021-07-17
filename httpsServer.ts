@@ -23,14 +23,14 @@ export class createHttpsServer {
 
     listen() {
         this.server.listen(this.httpsPort, () => {
-            console.log(`Server listening on https, port: ${this.httpsPort}`)
+            console.log(`Server listening on https, port: ${this.httpsPort}`);
         });
     }
 }
 
 export function redirectToHttps(httpsEnabled:boolean) {
     if(httpsEnabled) {
-        console.log("Enabling redirecting to https")
+        console.log("Enabling redirecting to https");
     }
     return (req, res, next) => {
             if(httpsEnabled && !req.secure) {
