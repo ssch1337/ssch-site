@@ -15,6 +15,13 @@ mainScript.async = true;
 mainScript.defer = true;
 document.getElementsByTagName('body')[0].appendChild(mainScript);
 
+// Loading an external styles
+const mainCss: HTMLLinkElement = document.createElement('link');
+mainCss.rel = 'stylesheet';
+mainCss.href = '/main.min.css';
+document.getElementsByTagName('head')[0].appendChild(mainCss);
+
+
 // Waiting for the page to load completely
 const checkLoadPage = setInterval(() => {
     if(document.documentElement.classList[1] == 'loaded') {

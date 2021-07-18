@@ -19,6 +19,9 @@ if(!productionMode){
     app.get('/main.min.js', (req, res) => {
         res.sendFile(__dirname + "/dist/main.js");
     });
+    app.get('/main.min.css', (req, res) => {
+        res.sendFile(__dirname + "/dist/main.css");
+    })
 } else {
     app.use(helmet()); // For protection
 }
