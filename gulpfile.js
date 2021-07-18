@@ -38,9 +38,10 @@ class tsBuild {
 				this.bundler[index] = browserify({
 					basedir: ".",
 					debug: !production,
-					entries: [`src/${projectName}/typescript/main.ts`],
+					entries: [`src/${projectName}/typescript/main.ts${tsxEnable.indexOf(projectName) != -1 ? "x" : ""}`],
 					cache: {},
 					packageCache: {},
+					extensions: ['.tsx']
 				}).plugin(tsify, { project: `src/${projectName}/tsconfig.json` }).plugin(glslifyRequire);
 
 				this.bundle[index] = () => {
@@ -129,6 +130,7 @@ class sassBuild {
 
 
 const projects = ["preloader", "main", "experimental"];
+const tsxEnable = ["main"];
 
 /*/
  * Selective compilation.
