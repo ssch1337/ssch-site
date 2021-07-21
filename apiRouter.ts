@@ -1,17 +1,8 @@
 import { Router } from "express";
 import { errorHandler } from "./errorHandler";
+import * as store from "./storePages.json"; // The database is not used due to the triviality of the application
 
-let apiRouter = Router();
-
-// The database is not used due to the triviality of the application
-const store = {
-    home: {
-        title: "Home"
-    },
-    about: {
-        title: "About me"
-    }
-}
+const apiRouter = Router();
 
 const _pages = Object.keys(store);
 
@@ -33,7 +24,11 @@ apiRouter.get("/:page?", (req, res) => {
             res.json({ title: store[page].title, data: html });
         });
     } else {
-        res.sendStatus(404);
+        res.status(404).render('main/notfound', {}, (err, html) => {
+            if(err) errorHandler(err, res);
+            
+            res.json({ title: "Page not found", data: html});
+        });
     }
 });
 
