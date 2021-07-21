@@ -1,6 +1,28 @@
+# Logs
+/logs
+*.log
+npm-debug.log*
+
+# Dependency directory
 node_modules
-dist
-.DS_Store
+
+# Dependency tree
 package-lock.json
+
+# Compiled releases
+dist
+
+# Certificates
+*.spc
+*.pvk
+*.p12
+*.cer
+*.crt
+*.pem
 certs
+
+# OSX files
+.DS_Store
+
+# VSCode files
 .vscode
