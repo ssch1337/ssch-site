@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { errorHandler } from "./errorHandler";
+import { errorHandler } from "./logger/errorHandler";
 import * as store from "./storePages.json"; // The database is not used due to the triviality of the application
 
 const apiRouter = Router();

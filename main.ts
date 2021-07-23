@@ -4,7 +4,8 @@ import * as ports from './ports.json';
 import * as morgan from 'morgan'; // For logs
 import * as helmet from 'helmet'; // Sets custom http headers for security
 import { apiRouter } from './apiRouter';
-import { errorHandlerMiddleware } from "./errorHandler";
+import { errorHandlerMiddleware } from "./logger/errorHandler";
+import { visitors } from "./logger/visitors";
 
 const app = express(),
     httpsEnabled = (process.argv[2] == '--https'), // Checking by passed arguments
@@ -16,6 +17,7 @@ if(!productionMode){
 	app.use(require('connect-livereload')({
 		port: ports.livereload
 	}));
+    app.use(morgan("dev")); // For logs
     app.get('/main.min.js', (req, res) => {
         res.sendFile(__dirname + "/dist/main.js");
     });
@@ -24,15 +26,17 @@ if(!productionMode){
     })
 } else {
     app.use(helmet()); // For protection
+    app.use(morgan("combined", { stream: visitors() })); // For logs
 }
 
 
 
-app.use(morgan("dev")); // For logs
 
 app.use(redirectToHttps(httpsEnabled));
 
 app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/images'));
+
 app.use('/anime.min.js', express.static(__dirname + '/node_modules/animejs/lib/anime.min.js'));
 
 
