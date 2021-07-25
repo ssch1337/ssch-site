@@ -1,3 +1,4 @@
+import { afterPreloader } from './final-actions';
 declare global{
     const anime: typeof import('animejs');
 };
@@ -37,7 +38,7 @@ export class preloadAnim {
             .add({
                 scale: {
                     value: [0, 1],
-                    duration: 200
+                    duration: 100
                 },
                 translateY: "0.1vw"
             })
@@ -53,7 +54,7 @@ export class preloadAnim {
                     { value: 1, duration: 700 }
                 ],
                 easing: "easeOutElastic(1, .8)"
-            })
+            }, "-=80")
             .add({
                 translateX: {
                     value: "38vw",
@@ -112,8 +113,8 @@ export class preloadAnim {
         }
     }
     play() {
-        this._preloadAboutAnim.play();
         this._preloadAnimAuthor.play();
+        this._preloadAboutAnim.play();
     }
     finished() {
         return this._preloadAnimAuthor.finished;
@@ -140,27 +141,21 @@ export class preloadAnim {
             .add({
                 width: {
                     value: ["1vw", "7vw"],
-                    duration: 300,
-                    eeasing: "linear"
+                    duration: 300
                 },
                 height: {
                     value: ["1vw","7vw"],
-                    duration: 300,
-                    eaesing: "linear"
+                    duration: 300
                 },
                 translateX: {
                     value: ["38vw","48vw"],
-                    duration: 600
+                    duration: 200
                 },
                 translateY: {
                     value: ["4vw", "0"],
-                    duration: 200
+                    duration: 150
                 },
-                scaleX: [
-                    { value: 2, duration: 100, easing: "easeOutExpo" },
-                    { value: 1, duration: 500 }
-                ],
-                easing: "easeOutElastic(1, .8)"
+                easing: "easeOutCirc"
             })
             .add({
                 translateX: {
@@ -184,34 +179,25 @@ export class preloadAnim {
                 delay: (el, i) => 16 * (14 / (i+2))
             }, "-=860")
             .add({
-                scaleX: [
-                    { value: 3, duration: 400, easing: "easeOutExpo" },
-                    { value: 1, duration: 400 }
-                ],
-                easing: "easeOutElastic(1, .8)",
+                width: "16vw",
+                duration: 600,
+                easing: "easeInOutQuint",
             })
             .add({
                 targets: ".preload",
                 translateX: {
-                    value: [0, "20vw"],
-                    duration: 800
+                    value: "100%",
+                    duration: 1000
                 },
-                opacity: {
-                    value: [1, 0],
-                    duration: 800
-                },
-                easing: "easeOutElastic(1, .8)"
-            }, "-=800");
+                easing: "easeInOutQuint"
+            }, "-=600");
         }
         this._preloadAnimAuthor.play();
 
 
         // Upon completion of the animation
         this._preloadAnimAuthor.finished.then(() => {
-            document.documentElement.classList.remove("has-preloader-no-scroll"); // Enabling scrolling when the animation ends
-            document.querySelector(".preload").remove(); // Removing the whole block because there will be no more
-            console.log("Preload animation complete");
-            document.scripts[1].remove();
+            afterPreloader();
         });
     }
 }

@@ -35,9 +35,9 @@ if(!productionMode){
 app.use(redirectToHttps(httpsEnabled));
 
 app.use(express.static(__dirname + '/dist'));
-app.use(express.static(__dirname + '/images'));
-
-app.use('/anime.min.js', express.static(__dirname + '/node_modules/animejs/lib/anime.min.js'));
+app.use(express.static(__dirname + '/images', { maxAge: "1w" }));
+app.use(express.static(__dirname + '/fonts', { maxAge: "1w" }));
+app.use('/anime.min.js', express.static(__dirname + '/node_modules/animejs/lib/anime.min.js', { maxAge: "1w"}));
 
 
 app.set('view engine', 'pug');

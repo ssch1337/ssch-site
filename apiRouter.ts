@@ -8,10 +8,7 @@ const _pages = Object.keys(store);
 
 
 apiRouter.get("/menu", (req,res) => {
-    res.render("main/menu", { links: _pages }, (err, html) => {
-        if(err) errorHandler(err, res);
-        res.json({ pages: _pages, data: html });
-    });
+    res.json(store);
 });
 
 apiRouter.get("/:page?", (req, res) => {
