@@ -16,6 +16,7 @@ export class preloadAnim {
         const preloadAboutWrapper: HTMLElement = document.querySelector(".preload-about");
         preloadAboutWrapper.innerHTML = preloadAboutWrapper.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class=\"preload-about-letter\">$&</span>");
         preloadAboutWrapper.style.opacity = "1";
+        (document.querySelector(".preload") as HTMLElement).style.opacity = "1";
 
         document.documentElement.classList.add("has-preloader-no-scroll"); // Disable scrolling, included in the playEnd
 
