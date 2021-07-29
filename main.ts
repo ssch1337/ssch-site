@@ -39,7 +39,7 @@ app.use(express.static(__dirname + '/images', { maxAge: "1w" }));
 app.use(express.static(__dirname + '/fonts', { maxAge: "1w" }));
 app.use('/anime.min.js', express.static(__dirname + '/node_modules/animejs/lib/anime.min.js', { maxAge: "1w"}));
 
-
+app.engine('pug', require('pug').__express)
 app.set('view engine', 'pug');
 
 

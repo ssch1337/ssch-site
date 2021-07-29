@@ -4,9 +4,6 @@ import * as store from "./storePages.json"; // The database is not used due to t
 
 const apiRouter = Router();
 
-const _pages = Object.keys(store);
-
-
 apiRouter.get("/menu", (req,res) => {
     res.json(store);
 });

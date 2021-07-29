@@ -5,7 +5,7 @@
 npm install
 ```
 
-You also need to install global dependencies: gulp-cli, typescript, ts-node
+You also need to install global dependencies: gulp-cli, typescript, webpack
 
 ## Build
 ```shell

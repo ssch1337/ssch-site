@@ -11,6 +11,8 @@ package-lock.json
 
 # Compiled releases
 dist
+server-bundle.js
+server-bundle.js.LICENSE.txt
 
 # Certificates
 *.spc
