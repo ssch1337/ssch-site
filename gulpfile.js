@@ -13,6 +13,11 @@ const gulp = require("gulp"),
 	gulpif = require("gulp-if"), // To implement logic in Readable Stream
 	sass = require("gulp-sass")(require("sass")),
 	rename = require("gulp-rename"), // For the .min extension
+	/* Compressing files with brotli and zopfli */
+	brotli = require('gulp-brotli'), // To compress files
+	zopfli = require('gulp-zopfli-green'), // Backward compatible with .gz
+	zlib = require('zlib'),
+	/* Compressing files with brotli and zopfli */
 	fs = require("fs"); // For reading tsconfig.json
 
 class tsBuild {
@@ -115,7 +120,7 @@ class sassBuild {
 	compile(callback) {
 		console.log(`Compile sass project${this.originalNames.length == 1 ? "" : "s"} ${this.originalNames.join(", ")} in ${this.production ? "production" : "development"} mode`);
 		return gulp.series(this.projectNames)(() => {
-			if(callback) { callback; }
+			if(callback) { callback(); }
 		});
 	}
 	watch() {
@@ -167,13 +172,45 @@ gulp.task("watch", () => {
 	watchedTs.compile();
 });
 
+gulp.task("anime", () => {
+	return gulp.src(__dirname + '/node_modules/animejs/lib/anime.min.js')
+		.pipe(gulp.dest("dist/deps"));
+})
 
-gulp.task("default", async () => {
-	const ts = new tsBuild(projects, true);
-	const sass = new sassBuild(projects, true);
-	ts.compile();
-	sass.compile();
+gulp.task("zopfli", () => {
+	return gulp.src(['dist/**/*.js', 'dist/**/*.css'])
+		.pipe(zopfli())
+		.pipe(gulp.dest('dist'));
 });
+
+gulp.task("brotli", () => {
+	return gulp.src(['dist/**/*.js', 'dist/**/*.css'])
+		.pipe(brotli.compress({
+			params: {
+			  [zlib.constants.BROTLI_PARAM_QUALITY]: zlib.constants.BROTLI_MAX_QUALITY,
+			},
+		  }))
+		.pipe(gulp.dest('dist'));
+});
+
+gulp.task("default", gulp.series(
+	"anime",
+	gulp.parallel(
+		function tsBuilder () {
+			const ts = new tsBuild(projects, true);
+			return new Promise((resolve,reject) => {
+				ts.compile(resolve);
+			})
+		},
+		function sassBuilder () {
+			const sass = new sassBuild(projects, true);
+			return new Promise((resolve,reject) => {
+				sass.compile(resolve);
+			})
+		}
+	),
+	gulp.parallel("brotli", "zopfli")
+));
 
 
 gulp.task("dev", async () => {
