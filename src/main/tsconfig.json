@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
-        "noImplicitAny": true,
+        "strict": true,
         "target": "es2018",
-        "removeComments": true
+        "removeComments": true,
+        "moduleResolution": "node",
+        "jsx": "react-jsx"
     }
 }
