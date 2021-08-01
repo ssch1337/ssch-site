@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import { createServer } from 'https';
+import { createServer } from 'spdy';
 
 export class createHttpsServer {
     httpsPort: number;

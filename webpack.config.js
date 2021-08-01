@@ -19,7 +19,7 @@ module.exports = {
     },
     // externals: {
     //     fs: 'commonjs fs',
-    //     https: 'commonjs https',
+    //     spdy: 'commonjs spdy',
     //     path: 'commonjs path',
     //     express: 'commonjs express',
     //     helmet: 'commonjs helmet',
