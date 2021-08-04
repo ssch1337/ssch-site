@@ -4,8 +4,8 @@ import { createServer } from 'spdy';
 export class createHttpsServer {
     httpsPort: number;
     paths: {cert: string, key: string} = {
-        cert: __dirname + '/certs/https.crt',
-        key: __dirname + '/certs/https.key'
+        cert: __dirname + '/certs/cert.pem',
+        key: __dirname + '/certs/privkey.pem'
     }
     server: any;
     constructor(app, port: number) {
